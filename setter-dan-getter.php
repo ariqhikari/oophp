@@ -2,11 +2,11 @@
 
 class Produk
 {
-    public $judul,
+    private $judul,
         $penulis,
-        $penerbit;
-    protected $diskon = 0;
-    private $harga;
+        $penerbit,
+        $harga,
+        $diskon = 0;
 
     public function __construct($judul = "judul", $penulis = "penulis", $penerbit = "penerbit", $harga = 0)
     {
@@ -16,14 +16,68 @@ class Produk
         $this->harga = $harga;
     }
 
+    public function setJudul($judul)
+    {
+        if (!is_string($judul)) {
+            throw new Exception("Judul harus string!");
+        }
+        $this->judul = $judul;
+    }
+
+    public function getJudul()
+    {
+        return $this->judul;
+    }
+
+    public function setPenulis($penulis)
+    {
+        if (!is_string($penulis)) {
+            throw new Exception("Penulis harus string!");
+        }
+        $this->penulis = $penulis;
+    }
+
+    public function getPenulis()
+    {
+        return $this->penulis;
+    }
+
+    public function setPenerbit($penerbit)
+    {
+        if (!is_string($penerbit)) {
+            throw new Exception("penerbit harus string!");
+        }
+        $this->penerbit = $penerbit;
+    }
+
+    public function getPenerbit()
+    {
+        return $this->penerbit;
+    }
+
     public function getLabel()
     {
         return "$this->penulis, $this->penerbit";
     }
 
+    public function setHarga($harga)
+    {
+        $this->harga = $harga;
+    }
+
     public function getHarga()
     {
         return $this->harga - ($this->harga * $this->diskon / 100);
+    }
+
+    public function setDiskon($diskon)
+    {
+        $this->diskon = $diskon;
+    }
+
+    public function getDiskon()
+    {
+        return $this->diskon;
     }
 
     public function getInfoProduk()
@@ -60,11 +114,6 @@ class Game extends Produk
         $this->waktuMain = $waktuMain;
     }
 
-    public function setDiskon($diskon)
-    {
-        $this->diskon = $diskon;
-    }
-
     public function getInfoProduk()
     {
         $str = "Game : " . parent::getInfoProduk() . " ~ {$this->waktuMain} Jam.";
@@ -93,3 +142,7 @@ echo $produk2->getInfoProduk();
 echo "<hr>";
 $produk2->setDiskon(50);
 echo $produk2->getHarga();
+
+echo "<hr>";
+$produk1->setPenerbit("Ariq Hikari");
+echo $produk1->getPenerbit();
